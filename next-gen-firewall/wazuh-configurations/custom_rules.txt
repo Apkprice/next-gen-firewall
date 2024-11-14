@@ -1,0 +1,30 @@
+```xml
+<!-- Custom Rules for Next-Gen Firewall Project -->
+
+<group name="ngfw_custom_rules">
+  <!-- Rule to detect failed SSH login attempts -->
+  <rule id="100001" level="10">
+    <group>authentication_failed,sshd</group>
+    <description>Multiple failed SSH login attempts detected.</description>
+    <frequency>5</frequency>
+    <same_source_ip />
+    <options>no_full_log</options>
+  </rule>
+
+  <!-- Rule to detect suspicious network activity -->
+  <rule id="100002" level="12">
+    <decoded_as>network</decoded_as>
+    <description>Suspicious network activity detected.</description>
+  </rule>
+</group>
+
+
+<group name="usb_connections,windows,">
+  <rule id="100100" level="10">
+    <decoded_as>json</decoded_as>
+    <field name="win.system.providerName">Microsoft-Windows-UserPnp</field>
+    <field name="win.system.eventID">20001</field>
+    <description>USB device connected</description>
+    <mitre id="T1129" />
+  </rule>
+</group>
